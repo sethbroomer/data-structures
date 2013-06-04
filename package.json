@@ -1,0 +1,23 @@
+{
+      "name": "data-structures"
+    , "description": "Utilties for different data structures"
+    , "version": "0.0.1"
+    , "contributors": [
+        { "name": "Seth Broomer", "email": "seth.broomer@gmail.com" }
+        ]
+    , "dependencies": {
+    }
+    , "devDependencies": {
+          "mocha": "*"
+        , "should": "*"
+        , "colors": "*"
+        , "benchmark": "0.2.2"
+    }
+    , "engines": {
+          "node": "0.10.0"
+        , "npm": "1.2.12"
+    }
+    , "scripts" : {
+        "test" : "make test"
+    }
+}
