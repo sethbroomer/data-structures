@@ -1,0 +1,10 @@
+#node folders
+node_modules
+
+.project
+
+*.swp
+*.gz
+*.seed
+*.log
+*.csv
