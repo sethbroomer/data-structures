@@ -8,7 +8,7 @@ Implementation of data structures that are not native to JavaScript
     Linked List
     Doubly Linked List
 
-
+## Installation
 ```
 git clone git://github.com/sethbroomer/data-structures.git
 ```
