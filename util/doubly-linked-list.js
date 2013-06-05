@@ -5,16 +5,15 @@
  * Module exports.
  */
 
-module.exports = LinkedList;
+module.exports = DoublyLinkedList;
 
-function LinkedList() {
+function DoublyLinkedList() {
     this._length = 0;
     this._head   = null;  // first item in the list
-
 }
 
 
-LinkedList.prototype = {
+DoublyLinkedList.prototype = {
 
 
     /**
@@ -23,21 +22,24 @@ LinkedList.prototype = {
      */
     add: function(value) {
         var node = this._createNode(value),
-            currentNode;
+            currentNode,
+            previousNode;
 
         //If this is the first item, then we do something
         if(this._head === null) {
             //we make the head point to the node
             this._head = node;
-
         } else {
-            currentNode = this._head;
+            currentNode  = this._head;
+            previousNode = currentNode;
 
             while(currentNode.next) {
-                currentNode = currentNode.next;
+                previousNode = currentNode;
+                currentNode  = currentNode.next;
             }
 
             currentNode.next = node;
+            node.prev        = currentNode;
 
         }
 
@@ -82,7 +84,14 @@ LinkedList.prototype = {
         //if we remove the first one, we need to point to the next one
         if(index === 0) {
             currentNode = currentNode.next;
+            this._head  = currentNode;
+
+            if(this._head !== null) {
+                currentNode.prev = null;
+            }
+
         } else {
+
             //walk the tree and then get the previous node and the current node to remove.
             for(var i =0; i < index; i++) {
                 previousNode = currentNode;
@@ -91,12 +100,15 @@ LinkedList.prototype = {
 
             //'remove' the node by pointing to the currentNode.next
             previousNode.next = currentNode.next;
-        }
 
+            //if we are NOT the last element then we need to bridge the gap of the pointer
+            if(currentNode.next !== null) {
+                currentNode.next.prev = previousNode;
+            }
+        }
 
         this._length--;
 
-        return currentNode.data;
     },
 
     insertAfter: function(index, value) {
@@ -121,22 +133,31 @@ LinkedList.prototype = {
         //assign the current'nodes pointer to the new inserted element
         currentNode.next = node;
 
+        this._length++;
+
     },
 
     insertBefore: function(index, value) {
-        var currentNode = this._head,
-            node;
+        var node;
 
         if(!this._isValidIndex(index)) {
             return {};
         }
 
         if(index === 0) {
+            // create a new node
+            node = this._createNode(value);
 
+            // have the new node next point to the head
+            node.next = this._head;
+
+            //repoint the head to the new start
+            this._head = node;
+
+            this._length++;
         } else {
             this.insertAfter(index-1, value);
         }
-
     },
 
     pop: function() {
@@ -152,18 +173,23 @@ LinkedList.prototype = {
      * Private functions
      */
 
+    /**
+     * Creation of the node object
+     */
     _createNode: function(value) {
         var node = {
               data : value
             , next : null
+            , prev : null
         }
 
         return node;
     },
 
+    /**
+     * We want to make sure that the index passed in is valid
+     */
     _isValidIndex: function(index) {
-        //check to make sure its a valid index
-        //if it is not we will return an empty object
         if(index < 0 || index > (this._length -1)) {
             return false;
         }

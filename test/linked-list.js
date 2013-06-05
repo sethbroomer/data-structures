@@ -33,6 +33,8 @@ describe('Linked List Test', function(){
         list.remove(5);
         list.size().should.equal(9);
         list.get(6).should.eql(7);
+        list.get(4).should.eql(4);
+        list.get(5).should.eql(6);
    });
 
    it('should have 9 items', function(){
@@ -43,7 +45,7 @@ describe('Linked List Test', function(){
    it('should have 9 items', function(){
         list.remove(0);
         list.size().should.equal(9);
-        list.get(8).should.eql(8);
+        list.get(0).should.eql(1);
    });
 
 

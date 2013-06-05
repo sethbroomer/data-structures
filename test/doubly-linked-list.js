@@ -1,10 +1,10 @@
 "use strict";
 
-var LinkedList = require('../util/linked-list'),
+var DoublyLinkedList = require('../util/doubly-linked-list'),
     should     = require('should');
 
 describe('Linked List Test', function(){
-    var list = new LinkedList();
+    var list = new DoublyLinkedList();
 
     beforeEach(function() {
         for(var i =0; i < 10; i++) {
@@ -33,6 +33,8 @@ describe('Linked List Test', function(){
         list.remove(5);
         list.size().should.equal(9);
         list.get(6).should.eql(7);
+        list.get(4).should.eql(4);
+        list.get(5).should.eql(6);
    });
 
    it('should have 9 items', function(){
@@ -41,11 +43,28 @@ describe('Linked List Test', function(){
         list.get(8).should.eql(8);
    });
    it('should have 9 items', function(){
+        list.get(0).should.eql(0);
         list.remove(0);
         list.size().should.equal(9);
-        list.get(8).should.eql(8);
+        list.get(0).should.eql(1);
    });
 
+   it('should have 8 items', function(){
+        list.get(8).should.eql(8);
+        list.remove(7);
+        list.size().should.equal(9);
+        list.get(6).should.eql(6);
+        list.get(7).should.eql(8);
+        list.get(8).should.eql(9);
+   });
+
+   it('should have 0 items', function(){
+        for(var i=0; i < 10; i++) {
+            list.remove(0);
+        }
+        list.size().should.equal(0);
+        list.get(0).should.eql({});
+   });
 
    it('should have 11 items with an insert after', function(){
         list.get(5).should.eql(5);

@@ -5,16 +5,9 @@ Implementation of data structures that are not native to JavaScript
 
 
 ## Features
+    Linked List
+    Doubly Linked List
 
-
-## How to use
-
-
-
-## Development
-
-To contribute patches, run tests or benchmarks, make sure to clone the
-repository:
 
 ```
 git clone git://github.com/sethbroomer/data-structures.git

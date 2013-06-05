@@ -66,7 +66,7 @@ LinkedList.prototype = {
     },
 
     /**
-     * We will remove the item at the index and return the value we removed
+     * We will remove the item at the index
      * @param {Object} index
      */
     remove: function(index) {
@@ -82,6 +82,7 @@ LinkedList.prototype = {
         //if we remove the first one, we need to point to the next one
         if(index === 0) {
             currentNode = currentNode.next;
+            this._head  = currentNode;
         } else {
             //walk the tree and then get the previous node and the current node to remove.
             for(var i =0; i < index; i++) {
@@ -96,7 +97,6 @@ LinkedList.prototype = {
 
         this._length--;
 
-        return currentNode.data;
     },
 
     insertAfter: function(index, value) {
@@ -121,22 +121,30 @@ LinkedList.prototype = {
         //assign the current'nodes pointer to the new inserted element
         currentNode.next = node;
 
+        this._length++;
     },
 
     insertBefore: function(index, value) {
-        var currentNode = this._head,
-            node;
+        var node;
 
         if(!this._isValidIndex(index)) {
             return {};
         }
 
         if(index === 0) {
+            // create a new node
+            node = this._createNode(value);
 
+            // have the new node next point to the head
+            node.next = this._head;
+
+            //repoint the head to the new start
+            this._head = node;
+
+            this._length++;
         } else {
             this.insertAfter(index-1, value);
         }
-
     },
 
     pop: function() {
